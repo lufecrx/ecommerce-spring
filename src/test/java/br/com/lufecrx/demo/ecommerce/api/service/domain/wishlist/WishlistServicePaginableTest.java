@@ -19,7 +19,6 @@ import org.springframework.data.domain.Pageable;
 
 import br.com.lufecrx.demo.ecommerce.api.model.Wishlist;
 import br.com.lufecrx.demo.ecommerce.api.repository.WishlistRepository;
-import br.com.lufecrx.demo.ecommerce.api.services.domain.wishlist.WishlistServicePaginable;
 import br.com.lufecrx.demo.ecommerce.exception.api.domain.wishlist.WishlistsEmptyException;
 
 public class WishlistServicePaginableTest {

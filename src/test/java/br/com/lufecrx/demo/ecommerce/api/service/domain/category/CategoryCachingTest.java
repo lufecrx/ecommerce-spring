@@ -20,8 +20,6 @@ import com.github.javafaker.Faker;
 
 import br.com.lufecrx.demo.ecommerce.api.model.Category;
 import br.com.lufecrx.demo.ecommerce.api.repository.CategoryRepository;
-import br.com.lufecrx.demo.ecommerce.api.services.domain.category.CategoryService;
-import br.com.lufecrx.demo.ecommerce.api.services.domain.category.CategoryServicePaginable;
 
 @SpringBootTest
 public class CategoryCachingTest {

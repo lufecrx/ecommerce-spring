@@ -19,7 +19,6 @@ import org.springframework.data.domain.Pageable;
 
 import br.com.lufecrx.demo.ecommerce.api.model.Product;
 import br.com.lufecrx.demo.ecommerce.api.repository.ProductRepository;
-import br.com.lufecrx.demo.ecommerce.api.services.domain.product.ProductServicePaginable;
 import br.com.lufecrx.demo.ecommerce.exception.api.domain.product.ProductsEmptyException;
 
 public class ProductServicePaginableTest {

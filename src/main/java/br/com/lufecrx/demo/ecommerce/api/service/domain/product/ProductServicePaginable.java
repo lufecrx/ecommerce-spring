@@ -1,4 +1,4 @@
-package br.com.lufecrx.demo.ecommerce.api.services.domain.product;
+package br.com.lufecrx.demo.ecommerce.api.service.domain.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

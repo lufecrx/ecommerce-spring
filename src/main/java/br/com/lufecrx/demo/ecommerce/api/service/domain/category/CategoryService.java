@@ -1,4 +1,4 @@
-package br.com.lufecrx.demo.ecommerce.api.services.domain.category;
+package br.com.lufecrx.demo.ecommerce.api.service.domain.category;
 
 
 import java.util.Optional;

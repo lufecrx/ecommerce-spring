@@ -21,7 +21,6 @@ import org.mockito.MockitoAnnotations;
 import br.com.lufecrx.demo.ecommerce.api.model.Category;
 import br.com.lufecrx.demo.ecommerce.api.model.dto.CategoryDTO;
 import br.com.lufecrx.demo.ecommerce.api.repository.CategoryRepository;
-import br.com.lufecrx.demo.ecommerce.api.services.domain.category.CategoryService;
 import br.com.lufecrx.demo.ecommerce.exception.api.domain.category.CategoryAlreadyExistsException;
 import br.com.lufecrx.demo.ecommerce.exception.api.domain.category.CategoryNotFoundException;
 

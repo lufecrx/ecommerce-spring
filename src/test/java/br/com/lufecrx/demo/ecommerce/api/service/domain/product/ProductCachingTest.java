@@ -20,9 +20,6 @@ import com.github.javafaker.Faker;
 
 import br.com.lufecrx.demo.ecommerce.api.model.Product;
 import br.com.lufecrx.demo.ecommerce.api.repository.ProductRepository;
-import br.com.lufecrx.demo.ecommerce.api.services.domain.product.ProductService;
-import br.com.lufecrx.demo.ecommerce.api.services.domain.product.ProductServicePaginable;
-
 
 @SpringBootTest
 public class ProductCachingTest {

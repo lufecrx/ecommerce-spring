@@ -1,3 +1,4 @@
+package br.com.lufecrx.demo.ecommerce.api.service.domain.wishlist;
 // package br.com.lufecrx.demo.ecommerce.api.services.domain.wishlist;
 // import java.util.Optional;
 

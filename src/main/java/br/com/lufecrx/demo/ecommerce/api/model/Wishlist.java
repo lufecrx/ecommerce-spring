@@ -48,6 +48,9 @@ public class Wishlist {
     @OneToMany(mappedBy = "wishlist")
     private Set<Product> products;
 
+    /*
+     * The user that owns the wishlist.
+     */
     // @ManyToOne(fetch = FetchType.LAZY)
     // @JoinColumn(name = "user_id")
     // private User user;

@@ -1,4 +1,4 @@
-package br.com.lufecrx.demo.ecommerce.api.services.domain.product;
+package br.com.lufecrx.demo.ecommerce.api.service.domain.product;
 
 import java.util.HashSet;
 import java.util.Optional;

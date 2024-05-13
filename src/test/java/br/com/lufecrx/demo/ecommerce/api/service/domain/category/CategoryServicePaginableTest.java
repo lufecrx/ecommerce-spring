@@ -19,7 +19,6 @@ import org.springframework.data.domain.Pageable;
 
 import br.com.lufecrx.demo.ecommerce.api.model.Category;
 import br.com.lufecrx.demo.ecommerce.api.repository.CategoryRepository;
-import br.com.lufecrx.demo.ecommerce.api.services.domain.category.CategoryServicePaginable;
 import br.com.lufecrx.demo.ecommerce.exception.api.domain.category.CategoriesEmptyException;
 
 public class CategoryServicePaginableTest {

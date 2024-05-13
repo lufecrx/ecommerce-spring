@@ -21,7 +21,6 @@ import com.github.javafaker.Faker;
 import br.com.lufecrx.demo.ecommerce.api.model.Product;
 import br.com.lufecrx.demo.ecommerce.api.model.Wishlist;
 import br.com.lufecrx.demo.ecommerce.api.repository.WishlistRepository;
-import br.com.lufecrx.demo.ecommerce.api.services.domain.wishlist.WishlistServicePaginable;
 
 @SpringBootTest
 public class WishlistCachingIntegrationTest {

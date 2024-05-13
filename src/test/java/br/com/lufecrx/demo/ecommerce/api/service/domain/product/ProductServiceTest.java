@@ -27,7 +27,6 @@ import br.com.lufecrx.demo.ecommerce.api.model.dto.CategoryDTO;
 import br.com.lufecrx.demo.ecommerce.api.model.dto.ProductDTO;
 import br.com.lufecrx.demo.ecommerce.api.repository.CategoryRepository;
 import br.com.lufecrx.demo.ecommerce.api.repository.ProductRepository;
-import br.com.lufecrx.demo.ecommerce.api.services.domain.product.ProductService;
 import br.com.lufecrx.demo.ecommerce.exception.api.domain.product.ProductNotFoundException;
 
 public class ProductServiceTest {
