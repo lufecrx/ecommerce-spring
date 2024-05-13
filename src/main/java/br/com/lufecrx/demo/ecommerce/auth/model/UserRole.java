@@ -1,5 +1,9 @@
 package br.com.lufecrx.demo.ecommerce.auth.model;
 
+/**
+ * Enum to represent the user role.
+ * Contains the roles: admin and user.
+ */
 public enum UserRole {
     
     ADMIN("admin"),
