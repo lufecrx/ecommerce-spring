@@ -32,10 +32,10 @@ public class CategoryService {
 
     /**
      * Create a new category with the given data and save it to the database. 
-     * If a category with the same name already exists, the exception CategoryAlreadyExistsException is thrown.
      * CacheEvict annotation is used to remove all entries from the cache when a new category is created.
      * 
-     * @param category the data of the new category
+     * @param category the data of the new category.
+     * @throws CategoryAlreadyExistsException If a category with the same name already exists, the exception CategoryAlreadyExistsException is thrown.
      * 
      */
     @CacheEvict(value = "categories", allEntries = true)
@@ -55,10 +55,10 @@ public class CategoryService {
 
     /**
      * Retrieve a specific category by its ID. 
-     * If the category does not exist, the exception CategoryNotFoundException is thrown.
      * Cacheable annotation is used to cache the result of this method, so that the next time it is called with the same parameters, the result is returned from the cache.
      * 
      * @param categoryId the ID of the category to retrieve
+     * @throws CategoryNotFoundException If the category does not exist, the exception CategoryNotFoundException is thrown.
      * @return the category with the given ID
      * 
      */
@@ -77,11 +77,11 @@ public class CategoryService {
 
     /**
      * Rename the category with the given ID with the new data. 
-     * If the category does not exist, the exception CategoryNotFoundException is thrown.
      * CacheEvict annotation is used to remove all entries from the cache when a category is renamed.
      * 
      * @param categoryId the ID of the category to rename
      * @param updatedCategory the new data of the category
+     * @throws CategoryNotFoundException If the category does not exist, the exception CategoryNotFoundException is thrown.
      * 
      */
     @CacheEvict(value = "categories", allEntries = true)
@@ -98,10 +98,11 @@ public class CategoryService {
 
     /**
      * Delete the category with the given ID.
-     * If the category does not exist, the exception CategoryNotFoundException is thrown.
      * CacheEvict annotation is used to remove all entries from the cache when a category is deleted.
      * 
      * @param categoryId the ID of the category to delete
+     * @throws CategoryNotFoundException If the category does not exist, the exception CategoryNotFoundException is thrown.
+     * 
      */
     @CacheEvict(value = "categories", allEntries = true)
     public void deleteCategory(Long categoryId) {

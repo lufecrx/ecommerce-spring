@@ -42,6 +42,7 @@ public class ProductService {
      * CacheEvict annotation is used to remove all entries from the cache when a new product is created.
      * 
      * @param product the data of the new product
+     * @see validateCategories
      * 
      */
     @CacheEvict(value = "products", allEntries = true)
@@ -61,10 +62,10 @@ public class ProductService {
 
     /**
      * Retrieve a specific product by its ID. 
-     * If the product does not exist, the exception ProductNotFoundException is thrown.
      * Cacheable annotation is used to cache the result of this method, so that the next time it is called with the same parameters, the result is returned from the cache.
      * 
      * @param productId the ID of the product to retrieve
+     * @throws ProductNotFoundException If the product does not exist, the exception ProductNotFoundException is thrown.
      * @return the product with the given ID
      */
     @Cacheable(value = "products", key = "#productId")
@@ -83,11 +84,11 @@ public class ProductService {
 
     /**
      * Update the product with the given ID with the new data. 
-     * If the product does not exist, the exception ProductNotFoundException is thrown.
      * CacheEvict annotation is used to remove all entries from the cache when a product is updated.
      * 
      * @param productId the ID of the product to update
      * @param updatedProduct the new data of the product
+     * @throws ProductNotFoundException If the product does not exist, the exception ProductNotFoundException is thrown.
      * 
      */
     @CacheEvict(value = "products", allEntries = true)
@@ -113,10 +114,11 @@ public class ProductService {
 
     /**
      * Delete the product with the given ID.
-     * If the product does not exist, the exception ProductNotFoundException is thrown.
      * CacheEvict annotation is used to remove all entries from the cache when a product is deleted.
      * 
      * @param productId the ID of the product to delete
+     * @throws ProductNotFoundException If the product does not exist, the exception ProductNotFoundException is thrown.
+     * 
      */
     @CacheEvict(value = "products", allEntries = true)
     public void deleteProduct(Long productId) {

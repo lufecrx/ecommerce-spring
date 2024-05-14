@@ -20,6 +20,8 @@ import org.springframework.data.domain.Pageable;
 import br.com.lufecrx.demo.ecommerce.api.model.Product;
 import br.com.lufecrx.demo.ecommerce.api.repository.ProductRepository;
 import br.com.lufecrx.demo.ecommerce.exception.api.domain.product.ProductsEmptyException;
+import br.com.lufecrx.demo.ecommerce.exception.api.pagination.InvalidArgumentsToPaginationException;
+import br.com.lufecrx.demo.ecommerce.exception.api.pagination.InvalidSortDirectionException;
 
 public class ProductServicePaginableTest {
 
@@ -71,6 +73,30 @@ public class ProductServicePaginableTest {
         // Getting the products and expecting an exception
         assertThrows(RuntimeException.class, () -> {
             productServicePaginable.getWithPagination(0, 1, new String[] { "id", "asc" });
+        });
+    }
+
+        @Test
+    public void testGetWithPaginationThrowsExceptionWhenPageIsNegative() {
+        // Getting the wishlists and expecting an exception
+        assertThrows(InvalidArgumentsToPaginationException.class, () -> {
+            productServicePaginable.getWithPagination(-1, 1, new String[] { "id", "asc" });
+        });
+    }
+
+    @Test
+    public void testGetWithPaginationThrowsExceptionWhenSizeIsNegative() {
+        // Getting the wishlists and expecting an exception
+        assertThrows(InvalidArgumentsToPaginationException.class, () -> {
+            productServicePaginable.getWithPagination(0, -1, new String[] { "id", "asc" });
+        });
+    }
+
+    @Test
+    public void testGetWithPaginationThrowsExceptionWhenSortDirectionIsInvalid() {
+        // Getting the wishlists and expecting an exception
+        assertThrows(InvalidSortDirectionException.class, () -> {
+            productServicePaginable.getWithPagination(0, 1, new String[] { "id", "invalid" });
         });
     }
     

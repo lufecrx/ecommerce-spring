@@ -10,12 +10,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import br.com.lufecrx.demo.ecommerce.api.model.Wishlist;
 import br.com.lufecrx.demo.ecommerce.auth.util.validator.ValidPassword;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -94,8 +97,8 @@ public class User implements UserDetails {
     /**
      * The wishlists of the user. It is a set of wishlists.
      */
-    // @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    // private Set<Wishlist> wishlists;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Wishlist> wishlists;
 
     /**
      * A boolean to check if the user is enabled.

@@ -3,10 +3,14 @@ package br.com.lufecrx.demo.ecommerce.api.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import br.com.lufecrx.demo.ecommerce.auth.model.User;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -51,9 +55,9 @@ public class Wishlist {
     /*
      * The user that owns the wishlist.
      */
-    // @ManyToOne(fetch = FetchType.LAZY)
-    // @JoinColumn(name = "user_id")
-    // private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     /**
      * Adds a product to the wishlist.
