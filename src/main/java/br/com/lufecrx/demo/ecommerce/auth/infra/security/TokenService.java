@@ -36,6 +36,7 @@ public class TokenService {
     /**
      * Generates a token for the given user with the expiration time defined in the application.properties.
      * @param user User to generate the token
+     * @throws RuntimeException Exception thrown in case of error while generating the token
      * @return Token generated
      */
     public String generateToken(User user) {
@@ -58,6 +59,7 @@ public class TokenService {
     /**
      * Validates the token and returns the decoded subject.
      * @param token Token to validate
+     * @throws JWTVerificationException Exception thrown in case of error while validating the token
      * @return Subject of the token
      */
     public String validateToken(String token) {
