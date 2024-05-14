@@ -1,6 +1,5 @@
 package br.com.lufecrx.demo.ecommerce.api.controller.domain.product;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +30,6 @@ public class ProductControllerPaginable {
 
     private ProductServicePaginable productService;
 
-    @Autowired
     public ProductControllerPaginable(@Qualifier("paginable") ProductServicePaginable productService) {
         this.productService = productService;
     }

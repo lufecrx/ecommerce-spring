@@ -1,6 +1,5 @@
 package br.com.lufecrx.demo.ecommerce.api.controller.domain.wishlist;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +30,6 @@ public class WishlistControllerPaginable {
 
     private final WishlistServicePaginable wishlistService;
 
-    @Autowired
     public WishlistControllerPaginable(@Qualifier("paginable") WishlistServicePaginable wishlistService) {
         this.wishlistService = wishlistService;
     }

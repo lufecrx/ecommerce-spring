@@ -4,7 +4,6 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.lufecrx.demo.ecommerce.api.model.Product;
 import br.com.lufecrx.demo.ecommerce.api.model.dto.ProductDTO;
 import br.com.lufecrx.demo.ecommerce.api.service.domain.product.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,7 +41,6 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @Autowired
     public ProductController(@Qualifier("standard") ProductService productService) {
         this.productService = productService;
     }
