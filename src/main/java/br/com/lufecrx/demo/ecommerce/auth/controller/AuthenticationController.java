@@ -1,4 +1,5 @@
 package br.com.lufecrx.demo.ecommerce.auth.controller;
+
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -10,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.lufecrx.demo.ecommerce.auth.model.dto.AuthenticationDTO;
-import br.com.lufecrx.demo.ecommerce.auth.model.dto.LoginResponseDTO;
-import br.com.lufecrx.demo.ecommerce.auth.model.dto.RegistrationDTO;
+import br.com.lufecrx.demo.ecommerce.auth.model.dto.authentication.LoginDTO;
+import br.com.lufecrx.demo.ecommerce.auth.model.dto.authentication.LoginResponseDTO;
+import br.com.lufecrx.demo.ecommerce.auth.model.dto.authentication.SignupDTO;
 import br.com.lufecrx.demo.ecommerce.auth.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -47,7 +48,7 @@ public class AuthenticationController {
     })
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(
-            @RequestBody @Valid AuthenticationDTO data) {
+            @RequestBody @Valid LoginDTO data) {
         
         var response = authService.login(data);
         return ResponseEntity.ok(response);
@@ -66,7 +67,7 @@ public class AuthenticationController {
     })
     @PostMapping("/signup")
     public ResponseEntity<String> signup(
-            @RequestBody @Valid RegistrationDTO data) {
+            @RequestBody @Valid SignupDTO data) {
         
         authService.signup(data);
         return ResponseEntity.ok(bundle.getString("user.successfully_signed_up"));

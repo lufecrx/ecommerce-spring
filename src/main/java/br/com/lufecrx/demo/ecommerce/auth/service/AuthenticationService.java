@@ -14,9 +14,9 @@ import br.com.lufecrx.demo.ecommerce.auth.infra.security.TokenService;
 import br.com.lufecrx.demo.ecommerce.auth.model.OneTimePassword;
 import br.com.lufecrx.demo.ecommerce.auth.model.User;
 import br.com.lufecrx.demo.ecommerce.auth.model.UserRole;
-import br.com.lufecrx.demo.ecommerce.auth.model.dto.AuthenticationDTO;
-import br.com.lufecrx.demo.ecommerce.auth.model.dto.LoginResponseDTO;
-import br.com.lufecrx.demo.ecommerce.auth.model.dto.RegistrationDTO;
+import br.com.lufecrx.demo.ecommerce.auth.model.dto.authentication.LoginDTO;
+import br.com.lufecrx.demo.ecommerce.auth.model.dto.authentication.LoginResponseDTO;
+import br.com.lufecrx.demo.ecommerce.auth.model.dto.authentication.SignupDTO;
 import br.com.lufecrx.demo.ecommerce.auth.repository.UserRepository;
 import br.com.lufecrx.demo.ecommerce.auth.util.EmailUtil;
 import br.com.lufecrx.demo.ecommerce.auth.util.OtpUtil;
@@ -63,7 +63,7 @@ public class AuthenticationService {
      * @return Token generated for the user.
      * 
      */
-    public LoginResponseDTO login(AuthenticationDTO data) {
+    public LoginResponseDTO login(LoginDTO data) {
         log.info("Received data to login");
 
         try {
@@ -96,7 +96,7 @@ public class AuthenticationService {
      * @throws EmailAlreadyExistsException if the email already exists.
      * 
      */
-    public void signup(RegistrationDTO data) {
+    public void signup(SignupDTO data) {
         log.info("Received data to signup");
 
         if (userRepository.existsByLogin(data.login())) {

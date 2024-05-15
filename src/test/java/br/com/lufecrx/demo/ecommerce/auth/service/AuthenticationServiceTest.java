@@ -23,7 +23,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import br.com.lufecrx.demo.ecommerce.auth.model.OneTimePassword;
 import br.com.lufecrx.demo.ecommerce.auth.model.User;
-import br.com.lufecrx.demo.ecommerce.auth.model.dto.RegistrationDTO;
+import br.com.lufecrx.demo.ecommerce.auth.model.dto.authentication.SignupDTO;
 import br.com.lufecrx.demo.ecommerce.auth.repository.UserRepository;
 import br.com.lufecrx.demo.ecommerce.auth.util.EmailUtil;
 import br.com.lufecrx.demo.ecommerce.auth.util.OtpUtil;
@@ -55,7 +55,7 @@ public class AuthenticationServiceTest {
 
     @Test
     public void testSignupUserLoginAlreadyExists() {
-        RegistrationDTO data = new RegistrationDTO("test", "test@test.com", "password", LocalDate.now(), "1234567890");
+        SignupDTO data = new SignupDTO("test", "test@test.com", "password", LocalDate.now(), "1234567890");
 
         // Mocking the behavior of the methods that will be called in the service method
         when(userRepository.existsByLogin(data.login())).thenReturn(true);
@@ -70,7 +70,7 @@ public class AuthenticationServiceTest {
 
     @Test
     public void testSignupUserEmailAlreadyExists() {
-        RegistrationDTO data = new RegistrationDTO("test", "test@test.com", "password", LocalDate.now(), "1234567890");
+        SignupDTO data = new SignupDTO("test", "test@test.com", "password", LocalDate.now(), "1234567890");
 
         // Mocking the behavior of the methods that will be called in the service method
         when(userRepository.existsByLogin(data.login())).thenReturn(false);
@@ -87,7 +87,7 @@ public class AuthenticationServiceTest {
 
     @Test
     public void testSignupErrorSendingEmail() throws MessagingException {
-        RegistrationDTO data = new RegistrationDTO("test", "test@test.com", "password12@",
+        SignupDTO data = new SignupDTO("test", "test@test.com", "password12@",
                 LocalDate.parse("2000-01-01"), "1234567890");
 
         // Mocking the behavior of the methods that will be called in the service method
@@ -110,7 +110,7 @@ public class AuthenticationServiceTest {
 
     @Test
     public void testSignupSuccess() throws MessagingException {
-        RegistrationDTO data = new RegistrationDTO("test", "test@test.com", "password", LocalDate.now(), "1234567890");
+        SignupDTO data = new SignupDTO("test", "test@test.com", "password", LocalDate.now(), "1234567890");
 
         // Mocking the behavior of the methods that will be called in the service method
         when(userRepository.existsByLogin(data.login())).thenReturn(false);
