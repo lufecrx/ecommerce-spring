@@ -24,6 +24,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 @RequestMapping("/categories/paginable")
 @ApiResponses(value = {
     @ApiResponse(responseCode = "200", description = "Categories found"),
+    @ApiResponse(responseCode = "400", description = "Invalid arguments to pagination"),
     @ApiResponse(responseCode = "404", description = "Categories not found")
 })
 public class CategoryControllerPaginable {

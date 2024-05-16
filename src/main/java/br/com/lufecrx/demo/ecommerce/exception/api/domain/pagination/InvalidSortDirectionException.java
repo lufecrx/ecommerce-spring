@@ -1,4 +1,4 @@
-package br.com.lufecrx.demo.ecommerce.exception.api.pagination;
+package br.com.lufecrx.demo.ecommerce.exception.api.domain.pagination;
 
 import java.util.Locale;
 import java.util.ResourceBundle;

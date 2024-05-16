@@ -19,9 +19,9 @@ import org.springframework.data.domain.Pageable;
 
 import br.com.lufecrx.demo.ecommerce.api.model.Product;
 import br.com.lufecrx.demo.ecommerce.api.repository.ProductRepository;
+import br.com.lufecrx.demo.ecommerce.exception.api.domain.pagination.InvalidArgumentsToPaginationException;
+import br.com.lufecrx.demo.ecommerce.exception.api.domain.pagination.InvalidSortDirectionException;
 import br.com.lufecrx.demo.ecommerce.exception.api.domain.product.ProductsEmptyException;
-import br.com.lufecrx.demo.ecommerce.exception.api.pagination.InvalidArgumentsToPaginationException;
-import br.com.lufecrx.demo.ecommerce.exception.api.pagination.InvalidSortDirectionException;
 
 public class ProductServicePaginableTest {
 

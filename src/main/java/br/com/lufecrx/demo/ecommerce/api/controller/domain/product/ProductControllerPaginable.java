@@ -24,6 +24,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 @RequestMapping("/products/paginable")
 @ApiResponses(value = {
     @ApiResponse(responseCode = "200", description = "Products found"),
+    @ApiResponse(responseCode = "400", description = "Invalid arguments to pagination"),
     @ApiResponse(responseCode = "404", description = "Products not found")
 })
 public class ProductControllerPaginable {

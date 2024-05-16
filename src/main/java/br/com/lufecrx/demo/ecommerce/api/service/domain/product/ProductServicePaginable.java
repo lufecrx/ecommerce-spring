@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 
 import br.com.lufecrx.demo.ecommerce.api.model.Product;
 import br.com.lufecrx.demo.ecommerce.api.repository.ProductRepository;
+import br.com.lufecrx.demo.ecommerce.exception.api.domain.pagination.InvalidArgumentsToPaginationException;
+import br.com.lufecrx.demo.ecommerce.exception.api.domain.pagination.InvalidSortDirectionException;
 import br.com.lufecrx.demo.ecommerce.exception.api.domain.product.ProductsEmptyException;
-import br.com.lufecrx.demo.ecommerce.exception.api.pagination.InvalidArgumentsToPaginationException;
-import br.com.lufecrx.demo.ecommerce.exception.api.pagination.InvalidSortDirectionException;
 import lombok.extern.slf4j.Slf4j;
 
 /**

@@ -63,9 +63,10 @@ public class PasswordResetController {
     @Operation(summary = "Reset a password", description = "Reset a password for the given email and token")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Password reset successfully"),
-        @ApiResponse(responseCode = "400", description = "OTP and new password must be provided"),
+        @ApiResponse(responseCode = "400", description = "OTP and new password must be provided / passwords do not match"),
         @ApiResponse(responseCode = "401", description = "Invalid or expired OTP"),        
         @ApiResponse(responseCode = "404", description = "User not found with the given email"),
+        @ApiResponse(responseCode = "409", description = "Passwords do not match"),
     })
     @PostMapping("/reset")
     public ResponseEntity<String> reset(

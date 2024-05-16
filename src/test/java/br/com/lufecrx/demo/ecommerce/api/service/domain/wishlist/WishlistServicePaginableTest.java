@@ -25,9 +25,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import br.com.lufecrx.demo.ecommerce.api.model.Wishlist;
 import br.com.lufecrx.demo.ecommerce.api.repository.WishlistRepository;
 import br.com.lufecrx.demo.ecommerce.auth.model.User;
+import br.com.lufecrx.demo.ecommerce.exception.api.domain.pagination.InvalidArgumentsToPaginationException;
+import br.com.lufecrx.demo.ecommerce.exception.api.domain.pagination.InvalidSortDirectionException;
 import br.com.lufecrx.demo.ecommerce.exception.api.domain.wishlist.WishlistsEmptyException;
-import br.com.lufecrx.demo.ecommerce.exception.api.pagination.InvalidArgumentsToPaginationException;
-import br.com.lufecrx.demo.ecommerce.exception.api.pagination.InvalidSortDirectionException;
 
 public class WishlistServicePaginableTest {
 
