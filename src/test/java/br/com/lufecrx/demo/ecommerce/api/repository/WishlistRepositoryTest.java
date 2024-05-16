@@ -35,7 +35,7 @@ public class WishlistRepositoryTest {
         entityManager.clear();
 
         user = User.builder()
-            .login(faker.name().username())
+            .login(faker.lorem().characters(5, 15)) // valid login must have between 5 and 15 characters
             .email(faker.internet().emailAddress())
             .password(faker.lorem().characters(10, 15) + "A1#")
             .build();

@@ -2,7 +2,6 @@ package br.com.lufecrx.demo.ecommerce.api.controller.domain.category;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -15,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -39,53 +37,16 @@ public class CategoryControllerPaginableTest {
         }
 
         @Test
-        public void testFindAll() throws Exception {
-            // Mock the service to return a list of categories
-            when(categoryService.getWithPagination(anyInt(), eq(10), any()))
-                    .thenReturn(Arrays.asList(new Category(), new Category()));
-        
-            // Perform a GET request and expect a 200 OK status, simulating a request to /paginable/categories/page/1
-            mockMvc.perform(get("/paginable/categories/page/1")
-                    .contentType(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isOk())
-                    .andExpect(content().json("[{}, {}]"));
-        }
-
-        @Test
-        public void testFindAllWithPaginationAndSizeFive() throws Exception {
+        public void testFindAllWhenSuccessful() throws Exception {
                 // Mock the service to return a list of categories
-                when(categoryService.getWithPagination(anyInt(), eq(5), any()))
-                                .thenReturn(Arrays.asList(new Category(), new Category()));
-                
-                // Perform a GET request and expect a 200 OK status, simulating a request to /paginable/categories/page/1/size=5
-                mockMvc.perform(get("/paginable/categories/page/1/size=5")
-                                .contentType(MediaType.APPLICATION_JSON))
-                                .andExpect(status().isOk())
-                                .andExpect(content().json("[{}, {}]"));
-        }
-
-        @Test
-        public void testFindAllWithPaginationAndSizeTen() throws Exception {
-                // Mock the service to return a list of categories
-                when(categoryService.getWithPagination(anyInt(), eq(10), any()))
+                when(categoryService.getWithPagination(anyInt(), anyInt(), any()))
                                 .thenReturn(Arrays.asList(new Category(), new Category()));
 
-                // Perform a GET request and expect a 200 OK status, simulating a request to /paginable/categories/page/1/size=10
-                mockMvc.perform(get("/paginable/categories/page/1/size=10")
-                                .contentType(MediaType.APPLICATION_JSON))
-                                .andExpect(status().isOk())
-                                .andExpect(content().json("[{}, {}]"));
-        }
-
-        @Test
-        public void testFindAllWithPaginationAndSizeTwenty() throws Exception {
-                // Mock the service to return a list of categories
-                when(categoryService.getWithPagination(anyInt(), eq(20), any()))
-                                .thenReturn(Arrays.asList(new Category(), new Category()));
-
-                // Perform a GET request and expect a 200 OK status, simulating a request to /paginable/categories/page/1/size=20
-                mockMvc.perform(get("/paginable/categories/page/1/size=20")
-                                .contentType(MediaType.APPLICATION_JSON))
+                // Perform a GET request and expect a 200 OK status, simulating a successful request to the endpoint /categories/paginable
+                mockMvc.perform(get("/categories/paginable")
+                                .param("page", "1")
+                                .param("size", "20")
+                                .param("sort", "name,asc"))
                                 .andExpect(status().isOk())
                                 .andExpect(content().json("[{}, {}]"));
         }

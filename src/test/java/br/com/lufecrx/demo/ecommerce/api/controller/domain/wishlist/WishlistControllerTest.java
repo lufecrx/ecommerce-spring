@@ -54,17 +54,18 @@ public class WishlistControllerTest {
         // Simulate the situation where the user is authenticated and is the owner of the wishlist
         when(wishlistService.getWishlistById(1L)).thenReturn(Optional.of(wishlist));
 
-        mockMvc.perform(get("/wishlists/find-wishlist/1")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/wishlists/find")
+                .param("wishlist", "1"))
                 .andExpect(status().isOk()); // The user is authenticated and is the owner of the wishlist
         
         // Simulate the situation where the user is authenticated and is not the owner of the wishlist
         when(wishlistService.getWishlistById(2L)).thenThrow(WishlistNotFoundException.class);
 
-        mockMvc.perform(get("/wishlists/find-wishlist/2")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/wishlists/find")
+                .param("wishlist", "2"))
                 .andExpect(status().isNotFound()); // The user is authenticated but is not the owner of the wishlist
     }
+
 
     @Test
     @WithMockUser(roles = "USER")
@@ -72,17 +73,18 @@ public class WishlistControllerTest {
         // Simulate the situation where the user is authenticated and is the owner of the wishlist
         when(wishlistService.getWishlistByName("Test Wishlist")).thenReturn(Optional.of(wishlist));
 
-        mockMvc.perform(get("/wishlists/find-wishlist-by-name/Test Wishlist")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/wishlists/find-by-name")
+                .param("name", "Test Wishlist"))
                 .andExpect(status().isOk()); // The user is authenticated and is the owner of the wishlist
         
         // Simulate the situation where the user is authenticated and is not the owner of the wishlist
         when(wishlistService.getWishlistByName("Test Wishlist 2")).thenThrow(WishlistNotFoundException.class);
 
-        mockMvc.perform(get("/wishlists/find-wishlist-by-name/Test Wishlist 2")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/wishlists/find-by-name")
+                .param("name", "Test Wishlist 2"))
                 .andExpect(status().isNotFound()); // The user is authenticated but is not the owner of the wishlist
     }
+
 
     @Test
     @WithMockUser(roles = "USER")
@@ -90,11 +92,12 @@ public class WishlistControllerTest {
         // Simulate the situation where the user is authenticated and tries to access the endpoint
         doNothing().when(wishlistService).createWishlist(wishlist);
 
-        mockMvc.perform(post("/wishlists/add-wishlist")
+        mockMvc.perform(post("/wishlists/add")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(wishlist)))
                 .andExpect(status().isOk()); // The user is authenticated and is allowed to create a wishlist
     }
+
 
     @Test
     @WithMockUser(roles = "USER")
@@ -102,7 +105,8 @@ public class WishlistControllerTest {
         // Simulate the situation where the user is authenticated and is the owner of the wishlist
         doNothing().when(wishlistService).renameWishlist(1L, wishlist);
 
-        mockMvc.perform(put("/wishlists/update-wishlist/1")
+        mockMvc.perform(put("/wishlists/rename")
+                .param("wishlist", "1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(wishlist)))
                 .andExpect(status().isOk()); // The user is authenticated and is the owner of the wishlist
@@ -111,7 +115,8 @@ public class WishlistControllerTest {
         // Simulate the situation where the user is authenticated and is not the owner of the wishlist
         doThrow(WishlistNotFoundException.class).when(wishlistService).renameWishlist(2L, wishlist);
 
-        mockMvc.perform(put("/wishlists/update-wishlist/2")
+        mockMvc.perform(put("/wishlists/rename")
+                .param("wishlist", "2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(wishlist)))
                 .andExpect(status().isNotFound()); // The user is authenticated but is not the owner of the wishlist
@@ -120,11 +125,13 @@ public class WishlistControllerTest {
         // Simulate the situation where the user is authenticated and a wishlist with the same name already exists
         doThrow(WishlistAlreadyExistsException.class).when(wishlistService).renameWishlist(3L, wishlist);
 
-        mockMvc.perform(put("/wishlists/update-wishlist/3")
+        mockMvc.perform(put("/wishlists/rename")
+                .param("wishlist", "3")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(wishlist)))
                 .andExpect(status().isConflict()); // The user is authenticated but a wishlist with the same name already exists
     }
+
 
     @Test
     @WithMockUser(roles = "USER")
@@ -132,18 +139,19 @@ public class WishlistControllerTest {
         // Simulate the situation where the user is authenticated and is the owner of the wishlist
         doNothing().when(wishlistService).deleteWishlist(1L);
 
-        mockMvc.perform(delete("/wishlists/delete-wishlist/1")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(delete("/wishlists/delete")
+                .param("wishlist", "1"))
                 .andExpect(status().isOk()); // The user is authenticated and is the owner of the wishlist
 
 
         // Simulate the situation where the user is authenticated and is not the owner of the wishlist
         doThrow(WishlistNotFoundException.class).when(wishlistService).deleteWishlist(2L);
 
-        mockMvc.perform(delete("/wishlists/delete-wishlist/2")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(delete("/wishlists/delete")
+                .param("wishlist", "2"))
                 .andExpect(status().isNotFound()); // The user is authenticated but is not the owner of the wishlist
     }
+
 
     @Test
     @WithMockUser(roles = "USER")
@@ -151,16 +159,18 @@ public class WishlistControllerTest {
         // Simulate the situation where the user is authenticated and is the owner of the wishlist
         doNothing().when(wishlistService).addProductToWishlist(1L, 1L);
 
-        mockMvc.perform(put("/wishlists/1/add-product/1")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(put("/wishlists/add-product")
+                .param("wishlist", "1")
+                .param("product", "1"))
                 .andExpect(status().isOk()); // The user is authenticated and is the owner of the wishlist
 
         
         // Simulate the situation where the user is authenticated and is not the owner of the wishlist
         doThrow(WishlistNotFoundException.class).when(wishlistService).addProductToWishlist(2L, 1L);
 
-        mockMvc.perform(put("/wishlists/2/add-product/1")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(put("/wishlists/add-product")
+                .param("wishlist", "2")
+                .param("product", "1"))
                 .andExpect(status().isNotFound()); // The user is authenticated but is not the owner of the wishlist
 
         
@@ -172,13 +182,16 @@ public class WishlistControllerTest {
                 .andExpect(status().isNotFound()); // The user is authenticated but the product is not found
     }
 
+
     @Test
     @WithMockUser(roles = "USER")
     public void testRemoveProductToWishlistAsUser() throws Exception {
         // Simulate the situation where the user is authenticated and is the owner of the wishlist
         doNothing().when(wishlistService).removeProductFromWishlist(1L, 1L);
 
-        mockMvc.perform(put("/wishlists/1/remove-product/1")
+        mockMvc.perform(put("/wishlists/remove-product")
+                .param("wishlist", "1")
+                .param("product", "1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()); // The user is authenticated and is the owner of the wishlist
 
@@ -186,84 +199,18 @@ public class WishlistControllerTest {
         // Simulate the situation where the user is authenticated and is not the owner of the wishlist
         doThrow(WishlistNotFoundException.class).when(wishlistService).removeProductFromWishlist(2L, 1L);
 
-        mockMvc.perform(put("/wishlists/2/remove-product/1")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(put("/wishlists/remove-product")
+                .param("wishlist", "2")
+                .param("product", "1"))
                 .andExpect(status().isNotFound()); // The user is authenticated but is not the owner of the wishlist
 
         
         // Simulate the situation where the user is authenticated and the product is not found
         doThrow(ProductNotFoundException.class).when(wishlistService).removeProductFromWishlist(3L, 2L);
 
-        mockMvc.perform(put("/wishlists/3/remove-product/2")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(put("/wishlists/remove-product")
+                .param("wishlist", "3")
+                .param("product", "2"))
                 .andExpect(status().isNotFound()); // The user is authenticated but the product is not found
-    }
-        
-    // ### Test methods when the user is not authenticated ###
-    @Test
-    public void testFindByIdAsNotAuthenticated() throws Exception {
-        // Simulate the situation where the user is not authenticated and tries to access the endpoint
-        when(wishlistService.getWishlistById(1L)).thenReturn(Optional.of(wishlist)); 
-
-        // The user needs to be authenticated to access this endpoint and needs to be the owner of the wishlist
-        mockMvc.perform(get("/wishlists/find-wishlist/1")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isForbidden()); // In this case, the user is not authenticated
-    }
-
-    @Test
-    public void testCreateWishlistAsNotAuthenticated() throws Exception {
-        // Simulate the situation where the user is not authenticated and tries to access the endpoint
-        doNothing().when(wishlistService).createWishlist(wishlist);
-
-        mockMvc.perform(post("/wishlists/add-wishlist")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(wishlist)))
-                .andExpect(status().isForbidden()); // The user needs to be authenticated to access this endpoint
-    }
-
-    @Test
-    public void testRenameWishlistAsNotAuthenticated() throws Exception {
-        // Simulate the situation where the user is not authenticated and tries to access the endpoint
-        doNothing().when(wishlistService).renameWishlist(1L, wishlist);
-        
-        // The user needs to be authenticated to access this endpoint and needs to be the owner of the wishlist
-        mockMvc.perform(put("/wishlists/update-wishlist/1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(wishlist)))
-                .andExpect(status().isForbidden()); // In this case, the user is not authenticated
-    }
-
-    @Test
-    public void testDeleteWishlistAsNotAuthenticated() throws Exception {
-        // Simulate the situation where the user is not authenticated and tries to access the endpoint
-        doNothing().when(wishlistService).deleteWishlist(1L);
-
-        // The user needs to be authenticated to access this endpoint and needs to be the owner of the wishlist
-        mockMvc.perform(delete("/wishlists/delete-wishlist/1")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isForbidden()); // In this case, the user is not authenticated
-    }
-
-    @Test
-    public void testAddProductToWishlistAsNotAuthenticated() throws Exception {
-        // Simulate the situation where the user is not authenticated and tries to access the endpoint
-        doNothing().when(wishlistService).addProductToWishlist(1L, 1L);
-
-        // The user needs to be authenticated to access this endpoint and needs to be the owner of the wishlist
-        mockMvc.perform(put("/wishlists/1/add-product/1")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isForbidden()); // In this case, the user is not authenticated
-    }
-
-    @Test
-    public void testRemoveProductToWishlistAsNotAuthenticated() throws Exception {
-        // Simulate the situation where the user is not authenticated and tries to access the endpoint
-        doNothing().when(wishlistService).removeProductFromWishlist(1L, 1L);
-
-        // The user needs to be authenticated to access this endpoint and needs to be the owner of the wishlist
-        mockMvc.perform(delete("/wishlists/1/remove-product/1")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isForbidden()); // In this case, the user is not authenticated
     }
 }

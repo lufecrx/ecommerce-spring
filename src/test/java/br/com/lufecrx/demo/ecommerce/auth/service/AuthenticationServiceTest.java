@@ -55,7 +55,7 @@ public class AuthenticationServiceTest {
 
     @Test
     public void testSignupUserLoginAlreadyExists() {
-        SignupDTO data = new SignupDTO("test", "test@test.com", "password", LocalDate.now(), "1234567890");
+        SignupDTO data = new SignupDTO("login_test", "PasswordA12@", "test@test.com", LocalDate.now(), "1234567890");
 
         // Mocking the behavior of the methods that will be called in the service method
         when(userRepository.existsByLogin(data.login())).thenReturn(true);
@@ -70,7 +70,7 @@ public class AuthenticationServiceTest {
 
     @Test
     public void testSignupUserEmailAlreadyExists() {
-        SignupDTO data = new SignupDTO("test", "test@test.com", "password", LocalDate.now(), "1234567890");
+        SignupDTO data = new SignupDTO("login_test", "PasswordA12@", "test@test.com", LocalDate.now(), "1234567890");
 
         // Mocking the behavior of the methods that will be called in the service method
         when(userRepository.existsByLogin(data.login())).thenReturn(false);
@@ -87,7 +87,7 @@ public class AuthenticationServiceTest {
 
     @Test
     public void testSignupErrorSendingEmail() throws MessagingException {
-        SignupDTO data = new SignupDTO("test", "test@test.com", "password12@",
+        SignupDTO data = new SignupDTO("login_test", "PasswordA12@", "test@test.com",
                 LocalDate.parse("2000-01-01"), "1234567890");
 
         // Mocking the behavior of the methods that will be called in the service method
@@ -110,7 +110,7 @@ public class AuthenticationServiceTest {
 
     @Test
     public void testSignupSuccess() throws MessagingException {
-        SignupDTO data = new SignupDTO("test", "test@test.com", "password", LocalDate.now(), "1234567890");
+        SignupDTO data = new SignupDTO("login_test", "PasswordA12@", "test@test.com", LocalDate.now(), "1234567890");
 
         // Mocking the behavior of the methods that will be called in the service method
         when(userRepository.existsByLogin(data.login())).thenReturn(false);

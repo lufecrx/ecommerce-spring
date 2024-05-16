@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -103,7 +102,7 @@ public class ProductController {
     @ApiResponse(responseCode = "200", description = "Product deleted")
     @DeleteMapping("/delete")
     public ResponseEntity<String> delete(
-            @RequestParam(name = "product") @PathVariable Long productId) {
+            @RequestParam(name = "product") Long productId) {
 
         productService.deleteProduct(productId);
         return ResponseEntity.ok(bundle.getString("product.successfully_deleted"));

@@ -53,7 +53,7 @@ public class ProductControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     public void testCreateProductAsAdmin() throws Exception {
-        mockMvc.perform(post("/products/add-product")
+        mockMvc.perform(post("/products/add")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(dto)))
                 .andExpect(status().isOk()); // The admin user is allowed to create a product
@@ -62,8 +62,8 @@ public class ProductControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     public void testFindProductByIdAsAdmin() throws Exception {
-        mockMvc.perform(get("/products/find-product/1")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/products/find")
+                .param("product", "1"))
                 .andExpect(status().isOk()) // This endpoint is public
                 .andExpect(result -> {
                     String json = result.getResponse().getContentAsString();
@@ -75,7 +75,8 @@ public class ProductControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     public void testUpdateProductAsAdmin() throws Exception {
-        mockMvc.perform(put("/products/update-product/1")
+        mockMvc.perform(put("/products/update")
+                .param("product", "1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(dto)))
                 .andExpect(status().isOk()); // The admin user is allowed to update a product
@@ -84,8 +85,8 @@ public class ProductControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     public void testDeleteProductAsAdmin() throws Exception {
-        mockMvc.perform(delete("/products/delete-product/1")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(delete("/products/delete")
+                .param("product", "1"))
                 .andExpect(status().isOk()); // The admin user is allowed to delete a product
     }
 
@@ -93,7 +94,7 @@ public class ProductControllerTest {
     @Test
     @WithMockUser(roles = "USER")
     public void testCreateProductAsUser() throws Exception {
-        mockMvc.perform(post("/products/add-product")
+        mockMvc.perform(post("/products/add")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(dto)))
                 .andExpect(status().isForbidden()); // The user is prohibited from creating a product
@@ -102,8 +103,8 @@ public class ProductControllerTest {
     @Test
     @WithMockUser(roles = "USER")
     public void testFindProductByIdAsUser() throws Exception {
-        mockMvc.perform(get("/products/find-product/1")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/products/find")
+                .param("product", "1"))
                 .andExpect(status().isOk()) // The user is allowed to find a product
                 .andExpect(result -> {
                     String json = result.getResponse().getContentAsString();
@@ -115,7 +116,8 @@ public class ProductControllerTest {
     @Test
     @WithMockUser(roles = "USER")
     public void testUpdateProductAsUser() throws Exception {
-        mockMvc.perform(put("/products/update-product/1")
+        mockMvc.perform(put("/products/update")
+                .param("product", "1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(dto)))
                 .andExpect(status().isForbidden()); // The user is prohibited from updating a product
@@ -124,15 +126,15 @@ public class ProductControllerTest {
     @Test
     @WithMockUser(roles = "USER")
     public void testDeleteProductAsUser() throws Exception {
-        mockMvc.perform(delete("/products/delete-product/1")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(delete("/products/delete")
+                .param("product", "1"))
                 .andExpect(status().isForbidden()); // The user is prohibited from deleting a product
     }
 
     // ### Test methods when the user is not authenticated ###	
     @Test
     public void testCreateProductAsNotAuthenticated() throws Exception {
-        mockMvc.perform(post("/products/add-product")
+        mockMvc.perform(post("/products/add")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(dto)))
                 .andExpect(status().isForbidden()); // The guest user is prohibited from creating a product
@@ -140,8 +142,8 @@ public class ProductControllerTest {
 
     @Test
     public void testFindProductByIdAsNotAuthenticated() throws Exception {
-        mockMvc.perform(get("/products/find-product/1")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/products/find")
+                .param("product", "1"))
                 .andExpect(status().isOk()) // The guest user is allowed to find a product
                 .andExpect(result -> {
                     String json = result.getResponse().getContentAsString();
@@ -152,7 +154,8 @@ public class ProductControllerTest {
 
     @Test
     public void testUpdateProductAsNotAuthenticated() throws Exception {
-        mockMvc.perform(put("/products/update-product/1")
+        mockMvc.perform(put("/products/update")
+                .param("product", "1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(dto)))
                 .andExpect(status().isForbidden()); // The guest user is prohibited from updating a product
@@ -160,8 +163,8 @@ public class ProductControllerTest {
 
     @Test
     public void testDeleteProductAsNotAuthenticated() throws Exception {
-        mockMvc.perform(delete("/products/delete-product/1")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(delete("/products/delete")
+                .param("product", "1"))
                 .andExpect(status().isForbidden()); // The guest user is prohibited from deleting a product
     }
 }

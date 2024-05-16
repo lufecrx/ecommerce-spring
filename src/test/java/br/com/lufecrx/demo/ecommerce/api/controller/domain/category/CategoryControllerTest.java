@@ -53,7 +53,8 @@ public class CategoryControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     public void testFindByIdAsAdmin() throws Exception {
-        mockMvc.perform(get("/categories/find-category/" + 1L))
+        mockMvc.perform(get("/categories/find")
+                .param("category", "1"))
                 .andExpect(status().isOk()) // Dont need authentication to access this endpoint
                 .andExpect(result -> {
                     String json = result.getResponse().getContentAsString();
@@ -65,7 +66,7 @@ public class CategoryControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     public void testCreateCategoryAsAdmin() throws Exception {
-        mockMvc.perform(post("/categories/add-category")
+        mockMvc.perform(post("/categories/add")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(dto)))
                 .andExpect(status().isOk());
@@ -74,7 +75,8 @@ public class CategoryControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     public void testUpdateCategoryAsAdmin() throws Exception {
-        mockMvc.perform(put("/categories/update-category/" + 1L)
+        mockMvc.perform(put("/categories/rename")
+                .param("category", "1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(dto)))
                 .andExpect(status().isOk());
@@ -83,7 +85,8 @@ public class CategoryControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     public void testDeleteCategoryAsAdmin() throws Exception {
-        mockMvc.perform(delete("/categories/delete-category/" + 1L))
+        mockMvc.perform(delete("/categories/delete")
+                .param("category", "1"))
                 .andExpect(status().isOk());
     }
 
@@ -91,7 +94,8 @@ public class CategoryControllerTest {
     @Test
     @WithMockUser(roles = "USER")
     public void testFindByIdAsUser() throws Exception {
-        mockMvc.perform(get("/categories/find-category/" + 1L))
+        mockMvc.perform(get("/categories/find")
+                .param("category", "1"))
                 .andExpect(status().isOk()) // Dont need authentication to access this endpoint
                 .andExpect(result -> {
                     String json = result.getResponse().getContentAsString();
@@ -103,7 +107,7 @@ public class CategoryControllerTest {
     @Test
     @WithMockUser(roles = "USER")
     public void testCreateCategoryAsUser() throws Exception {
-        mockMvc.perform(post("/categories/add-category")
+        mockMvc.perform(post("/categories/add")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(dto)))
                 // The user is prohibited from creating a category
@@ -113,7 +117,8 @@ public class CategoryControllerTest {
     @Test
     @WithMockUser(roles = "USER")
     public void testUpdateCategoryAsUser() throws Exception {
-        mockMvc.perform(put("/categories/update-category/" + 1L)
+        mockMvc.perform(put("/categories/rename")
+                .param("category", "1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(dto)))
                 // The user is prohibited from updating a category
@@ -123,7 +128,8 @@ public class CategoryControllerTest {
     @Test
     @WithMockUser(roles = "USER")
     public void testDeleteCategoryAsUser() throws Exception {
-        mockMvc.perform(delete("/categories/delete-category/" + 1L))
+        mockMvc.perform(delete("/categories/delete")
+                .param("category", "1"))
                 // The user is prohibited from deleting a category
                 .andExpect(status().isForbidden());
     }
@@ -131,7 +137,8 @@ public class CategoryControllerTest {
     // ### Test methods when the user is not authenticated ###
     @Test
     public void testFindByIdAsNotAuthenticated() throws Exception {
-        mockMvc.perform(get("/categories/find-category/" + 1L))
+        mockMvc.perform(get("/categories/find")
+                .param("category", "1"))
                 .andExpect(status().isOk()) // Dont need authentication to access this endpoint
                 .andExpect(result -> {
                     String json = result.getResponse().getContentAsString();
@@ -142,7 +149,7 @@ public class CategoryControllerTest {
 
     @Test
     public void testCreateCategoryAsNotAuthenticated() throws Exception {
-        mockMvc.perform(post("/categories/add-category")
+        mockMvc.perform(post("/categories/add")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(dto)))
                 // The guest user is prohibited from creating a category
@@ -151,7 +158,8 @@ public class CategoryControllerTest {
 
     @Test
     public void testUpdateCategoryAsNotAuthenticated() throws Exception {
-        mockMvc.perform(put("/categories/update-category/" + 1L)
+        mockMvc.perform(put("/categories/rename")
+                .param("category", "1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(dto)))
                 // The guest user is prohibited from updating a category
@@ -160,7 +168,8 @@ public class CategoryControllerTest {
 
     @Test
     public void testDeleteCategoryAsNotAuthenticated() throws Exception {
-        mockMvc.perform(delete("/categories/delete-category/" + 1L))
+        mockMvc.perform(delete("/categories/delete")
+                .param("category", "1"))
                 // The guest user is prohibited from deleting a category
                 .andExpect(status().isForbidden());
     }

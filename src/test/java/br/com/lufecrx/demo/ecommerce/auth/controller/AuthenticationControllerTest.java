@@ -42,7 +42,7 @@ public class AuthenticationControllerTest {
 
     @Test
     public void testLogin() throws Exception {
-        String login = faker.name().username();
+        String login = faker.lorem().characters(5, 15); // valid login length is between 5 and 15 characters
         String password = faker.lorem().characters(10, 15) + "A1#";
 
         LoginDTO loginDTO = new LoginDTO(login, password);
@@ -66,7 +66,7 @@ public class AuthenticationControllerTest {
 
     @Test
     public void testSignup() throws Exception {
-        String login = faker.name().username();
+        String login = faker.lorem().characters(5, 15);
         String password = faker.lorem().characters(10, 15) + "A1#";
         String email = faker.internet().emailAddress();
         LocalDate birthDate = LocalDate.now().minusYears(18);

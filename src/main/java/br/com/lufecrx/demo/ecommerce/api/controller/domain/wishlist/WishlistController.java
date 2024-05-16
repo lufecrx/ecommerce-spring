@@ -135,8 +135,8 @@ public class WishlistController {
      */
     @Operation(summary = "Rename a wishlist", description = "Rename a wishlist with the given data")
     @ApiResponse(responseCode = "200", description = "Wishlist renamed")
-    @PutMapping("/update")
-    public ResponseEntity<String> update(
+    @PutMapping("/rename")
+    public ResponseEntity<String> rename(
             @RequestParam(name = "wishlist") Long wishlistActualId,
             @RequestBody @Valid WishlistDTO wishlistUpdated) {
 
