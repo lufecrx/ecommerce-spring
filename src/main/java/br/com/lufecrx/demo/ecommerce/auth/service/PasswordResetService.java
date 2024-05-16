@@ -13,6 +13,7 @@ import br.com.lufecrx.demo.ecommerce.auth.repository.UserRepository;
 import br.com.lufecrx.demo.ecommerce.auth.util.EmailUtil;
 import br.com.lufecrx.demo.ecommerce.auth.util.OtpUtil;
 import br.com.lufecrx.demo.ecommerce.exception.auth.domain.authentication.InvalidOtpException;
+import br.com.lufecrx.demo.ecommerce.exception.auth.domain.reset.password.MissingArgumentsToResetPasswordException;
 import br.com.lufecrx.demo.ecommerce.exception.auth.domain.reset.password.PasswordsDoNotMatchException;
 import br.com.lufecrx.demo.ecommerce.exception.auth.domain.user.UserNotEnabledException;
 import br.com.lufecrx.demo.ecommerce.exception.auth.domain.user.UserNotFoundException;
@@ -80,9 +81,9 @@ public class PasswordResetService {
         log.info("Received data to reset a password");
 
         if (token == null || data == null || data.password() == null || data.confirmPassword() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "OTP and new password must be provided");
+            throw new MissingArgumentsToResetPasswordException();
         }
-
+            
         var user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException(email));
                 

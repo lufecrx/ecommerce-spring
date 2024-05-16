@@ -47,8 +47,8 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/verify-account").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/resend-verification").permitAll()
-                        .requestMatchers(HttpMethod.POST, "password/request-reset").permitAll()
-                        .requestMatchers(HttpMethod.POST, "password/reset").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/password/request-reset").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/password/reset").permitAll()
                         .requestMatchers(HttpMethod.GET, "/categories/**", "/products/**").permitAll()
 
                         // Require authentication for all GET, POST, PUT, DELETE requests to /wishlists/**  
