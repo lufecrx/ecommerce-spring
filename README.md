@@ -1,4 +1,4 @@
-# eCommerce API with Authentication and Password Reset
+# eCommerce API 
 
 Spring Boot application that provides a CRUD API for eCommerce items (products, categories and wishlists) with authentication and password reset functionality.
 
