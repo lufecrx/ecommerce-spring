@@ -10,8 +10,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -49,8 +50,13 @@ public class Wishlist {
     /*
      * The set of products in the wishlist.
      */
-    @OneToMany(mappedBy = "wishlist")
-    private Set<Product> products;
+    @ManyToMany
+    @JoinTable(
+        name = "wishlist_product",
+        joinColumns = @JoinColumn(name = "wishlist_id"),
+        inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @Builder.Default
+    private Set<Product> products = new HashSet<>();
 
     /*
      * The user that owns the wishlist.

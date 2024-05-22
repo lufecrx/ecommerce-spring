@@ -3,6 +3,7 @@ package br.com.lufecrx.demo.ecommerce.api.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -58,13 +59,11 @@ public class ProductTest {
     }
 
     @Test
-    public void testWishlist() {
+    void testWishlists() {
+        Product product = new Product();
         Wishlist wishlist = Mockito.mock(Wishlist.class);
-        for (Product product : products) {
-            product.setWishlist(wishlist);
-            assertEquals(wishlist, product.getWishlist());
-            assertNotNull(product.getWishlist());
-        }
+        product.getWishlists().add(wishlist);
+        assertTrue(product.getWishlists().contains(wishlist));
     }
 
     @Test

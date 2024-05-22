@@ -1,5 +1,6 @@
 package br.com.lufecrx.demo.ecommerce.api.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -11,7 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -55,11 +55,11 @@ public class Product {
     private Double price;
 
     /*
-     * The wishlist that the product belongs to.
+     * The wishlists that the product belongs to.
      */
-    @ManyToOne
-    @JoinColumn(name = "wishlist_id")
-    private Wishlist wishlist;
+    @ManyToMany(mappedBy = "products")
+    @Builder.Default
+    private Set<Wishlist> wishlists = new HashSet<>();
 
     /*
      * The categories that the product belongs to.
