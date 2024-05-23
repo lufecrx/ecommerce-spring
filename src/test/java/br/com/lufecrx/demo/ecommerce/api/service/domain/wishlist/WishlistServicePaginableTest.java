@@ -23,6 +23,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import br.com.lufecrx.demo.ecommerce.api.model.Wishlist;
+import br.com.lufecrx.demo.ecommerce.api.model.dto.WishlistDTO;
 import br.com.lufecrx.demo.ecommerce.api.repository.WishlistRepository;
 import br.com.lufecrx.demo.ecommerce.auth.model.User;
 import br.com.lufecrx.demo.ecommerce.exception.api.domain.pagination.InvalidArgumentsToPaginationException;
@@ -71,11 +72,11 @@ public class WishlistServicePaginableTest {
         when(wishlistRepository.findAllByUser(eq(user), any(Pageable.class))).thenReturn(page);
 
         // Getting the wishlists
-        Iterable<Wishlist> wishlists = wishlistServicePaginable.getWithPagination(0, 1, new String[] { "id", "asc" });
+        Iterable<WishlistDTO> wishlists = wishlistServicePaginable.getWithPagination(0, 1, new String[] { "id", "asc" });
 
         // Verifying if the methods were called correctly
         assertTrue(wishlists.iterator().hasNext());
-        assertEquals(wishlist, wishlists.iterator().next());
+        assertEquals(WishlistDTO.from(wishlist), wishlists.iterator().next());
     }
 
     @Test

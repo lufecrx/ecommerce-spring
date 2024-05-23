@@ -82,7 +82,6 @@ Contributions are welcome. Please make sure to update tests as appropriate.
 
 Next steps for the application include:
 
-- Provide a way to search for products by name, category, or price range.
 - Add functionality to allow users to manager their own orders.
 - Add functionality to allow users to manager their own carts.
 - Payment gateway integration.

@@ -3,6 +3,7 @@ package br.com.lufecrx.demo.ecommerce.api.controller.domain.wishlist;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -17,7 +18,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import br.com.lufecrx.demo.ecommerce.api.model.Wishlist;
+import br.com.lufecrx.demo.ecommerce.api.model.dto.WishlistDTO;
 import br.com.lufecrx.demo.ecommerce.api.service.domain.wishlist.WishlistServicePaginable;
 
 public class WishlistControllerPaginableTest {
@@ -38,9 +39,13 @@ public class WishlistControllerPaginableTest {
 
     @Test
     public void testFindAll() throws Exception {
+        
+        WishlistDTO mockedWishlist1 = mock(WishlistDTO.class);
+        WishlistDTO mockedWishlist2 = mock(WishlistDTO.class);
+
         // Mock the service method to return a list of products
         when(wishlistService.getWithPagination(anyInt(), eq(10), any()))
-                .thenReturn(Arrays.asList(new Wishlist(), new Wishlist()));
+                .thenReturn(Arrays.asList(mockedWishlist1, mockedWishlist2));
 
         // Perform the GET request to retrieve all products
         mockMvc.perform(get("/wishlists/paginable")

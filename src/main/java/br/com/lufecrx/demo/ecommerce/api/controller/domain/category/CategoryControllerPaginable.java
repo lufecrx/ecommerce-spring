@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.lufecrx.demo.ecommerce.api.model.Category;
+import br.com.lufecrx.demo.ecommerce.api.model.dto.CategoryDTO;
 import br.com.lufecrx.demo.ecommerce.api.service.domain.category.CategoryServicePaginable;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -45,11 +46,11 @@ public class CategoryControllerPaginable {
     @Operation(summary = "Find all categories with pagination", 
             description = "Find all categories with pagination. Note: Maximum size is 60.")
     @GetMapping()
-    public ResponseEntity<Iterable<Category>> findAll(
+    public ResponseEntity<Iterable<CategoryDTO>> findAll(
             @RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "10") int size,
             @RequestParam(value = "sort", defaultValue = "name,asc") String[] sort) {
-        Iterable<Category> entities = categoryService.getWithPagination(page, size, sort);
+        Iterable<CategoryDTO> entities = categoryService.getWithPagination(page, size, sort);
         return ResponseEntity.ok(entities);
     }
 }

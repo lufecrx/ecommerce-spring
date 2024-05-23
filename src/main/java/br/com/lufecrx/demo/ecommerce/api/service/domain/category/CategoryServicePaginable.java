@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.com.lufecrx.demo.ecommerce.api.model.Category;
+import br.com.lufecrx.demo.ecommerce.api.model.dto.CategoryDTO;
 import br.com.lufecrx.demo.ecommerce.api.repository.CategoryRepository;
 import br.com.lufecrx.demo.ecommerce.exception.api.domain.category.CategoriesEmptyException;
 import br.com.lufecrx.demo.ecommerce.exception.api.domain.pagination.InvalidArgumentsToPaginationException;
@@ -44,7 +45,7 @@ public class CategoryServicePaginable extends CategoryService {
      * 
      */
     @Cacheable(value = "categories", key = "#page.toString() + #size.toString() + T(java.util.Arrays).toString(#sort)")
-    public Iterable<Category> getWithPagination(int page, int size, String[] sort) {
+    public Iterable<CategoryDTO> getWithPagination(int page, int size, String[] sort) {
 
         if (page < 0 || size < 0) {
             throw new InvalidArgumentsToPaginationException();
@@ -66,13 +67,13 @@ public class CategoryServicePaginable extends CategoryService {
 
         Pageable pageRequest = PageRequest.of(page, size, Sort.by(direction, property));
 
-        Page<Category> categoryPage = categoryRepository.findAll(pageRequest);
+        Page<Category> categories = categoryRepository.findAll(pageRequest);
 
-        if (!categoryPage.iterator().hasNext()) {
+        if (!categories.iterator().hasNext()) {
             throw new CategoriesEmptyException();
         }
 
-        return categoryPage;
+        return categories.map(CategoryDTO::from);
     }
 
 }

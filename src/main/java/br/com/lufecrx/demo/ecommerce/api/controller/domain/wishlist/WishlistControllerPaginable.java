@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.lufecrx.demo.ecommerce.api.model.Wishlist;
+import br.com.lufecrx.demo.ecommerce.api.model.dto.WishlistDTO;
 import br.com.lufecrx.demo.ecommerce.api.service.domain.wishlist.WishlistServicePaginable;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -45,11 +46,11 @@ public class WishlistControllerPaginable {
     @Operation(summary = "Find all wishlists with pagination", 
             description = "Find all wishlists with pagination. Note: Maximum size is 10.")
     @GetMapping()
-    public ResponseEntity<Iterable<Wishlist>> findAll(
+    public ResponseEntity<Iterable<WishlistDTO>> findAll(
         @RequestParam(required = false, defaultValue = "0") int page,
         @RequestParam(required = false, defaultValue = "10") int size,
         @RequestParam(value = "sort", defaultValue = "name,asc") String[] sort) {
-        Iterable<Wishlist> entities = wishlistService.getWithPagination(page, size, sort);
+        Iterable<WishlistDTO> entities = wishlistService.getWithPagination(page, size, sort);
         return ResponseEntity.ok(entities);
     }
 

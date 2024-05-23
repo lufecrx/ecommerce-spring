@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import br.com.lufecrx.demo.ecommerce.api.model.Wishlist;
+import br.com.lufecrx.demo.ecommerce.api.model.dto.WishlistDTO;
 import br.com.lufecrx.demo.ecommerce.api.repository.WishlistRepository;
 import br.com.lufecrx.demo.ecommerce.auth.model.User;
 import br.com.lufecrx.demo.ecommerce.exception.api.domain.pagination.InvalidArgumentsToPaginationException;
@@ -48,7 +49,7 @@ public class WishlistServicePaginable {
      * 
      */
     @Cacheable(value = "wishlists", key = "#page.toString() + #size.toString() + T(java.util.Arrays).toString(#sort)")
-    public Iterable<Wishlist> getWithPagination(int page, int size, String[] sort) {
+    public Iterable<WishlistDTO> getWithPagination(int page, int size, String[] sort) {
         
         log.info("Getting all wishlists with pagination, page {} and size {}", page, size);
         
@@ -71,12 +72,12 @@ public class WishlistServicePaginable {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         Pageable pageRequest = PageRequest.of(page, size, Sort.by(direction, property));
-        Page<Wishlist> wishlistPage = wishlistRepository.findAllByUser(user, pageRequest);
+        Page<Wishlist> wishlists = wishlistRepository.findAllByUser(user, pageRequest);
         
-        if (!wishlistPage.iterator().hasNext()) {
+        if (!wishlists.iterator().hasNext()) {
             throw new WishlistsEmptyException();
         }
     
-        return wishlistPage;
+        return wishlists.map(WishlistDTO::from);
     }
 }

@@ -18,6 +18,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import br.com.lufecrx.demo.ecommerce.api.model.Product;
+import br.com.lufecrx.demo.ecommerce.api.model.dto.ProductDTO;
 import br.com.lufecrx.demo.ecommerce.api.repository.ProductRepository;
 import br.com.lufecrx.demo.ecommerce.exception.api.domain.pagination.InvalidArgumentsToPaginationException;
 import br.com.lufecrx.demo.ecommerce.exception.api.domain.pagination.InvalidSortDirectionException;
@@ -45,11 +46,11 @@ public class ProductServicePaginableTest {
         when(productRepository.findAll(any(Pageable.class))).thenReturn(page);
 
         // Getting the products
-        Iterable<Product> products = productServicePaginable.getWithPagination(0, 1, new String[] { "id", "asc" });
+        Iterable<ProductDTO> products = productServicePaginable.getWithPagination(0, 1, new String[] { "id", "asc" });
 
         // Verifying if the methods were called correctly
         assertTrue(products.iterator().hasNext());
-        assertEquals(product, products.iterator().next());
+        assertEquals(ProductDTO.from(product), products.iterator().next());
     }
 
     @Test

@@ -18,6 +18,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import br.com.lufecrx.demo.ecommerce.api.model.Category;
+import br.com.lufecrx.demo.ecommerce.api.model.dto.CategoryDTO;
 import br.com.lufecrx.demo.ecommerce.api.repository.CategoryRepository;
 import br.com.lufecrx.demo.ecommerce.exception.api.domain.category.CategoriesEmptyException;
 import br.com.lufecrx.demo.ecommerce.exception.api.domain.pagination.InvalidArgumentsToPaginationException;
@@ -45,11 +46,11 @@ public class CategoryServicePaginableTest {
         when(categoryRepository.findAll(any(Pageable.class))).thenReturn(page);
 
         // Getting the categories
-        Iterable<Category> categories = categoryServicePaginable.getWithPagination(0, 1, new String[] { "id", "asc" });
+        Iterable<CategoryDTO> categories = categoryServicePaginable.getWithPagination(0, 1, new String[] { "id", "asc" });
 
         // Verifying if the methods were called correctly
         assertTrue(categories.iterator().hasNext());
-        assertEquals(category, categories.iterator().next());
+        assertEquals(CategoryDTO.from(category), categories.iterator().next());
     }
 
     @Test

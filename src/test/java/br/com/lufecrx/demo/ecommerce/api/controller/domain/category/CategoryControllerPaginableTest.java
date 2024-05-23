@@ -17,7 +17,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import br.com.lufecrx.demo.ecommerce.api.model.Category;
+import br.com.lufecrx.demo.ecommerce.api.model.dto.CategoryDTO;
 import br.com.lufecrx.demo.ecommerce.api.service.domain.category.CategoryServicePaginable;
 
 public class CategoryControllerPaginableTest {
@@ -40,7 +40,7 @@ public class CategoryControllerPaginableTest {
         public void testFindAllWhenSuccessful() throws Exception {
                 // Mock the service to return a list of categories
                 when(categoryService.getWithPagination(anyInt(), anyInt(), any()))
-                                .thenReturn(Arrays.asList(new Category(), new Category()));
+                                .thenReturn(Arrays.asList(new CategoryDTO(""), new CategoryDTO("")));
 
                 // Perform a GET request and expect a 200 OK status, simulating a successful request to the endpoint /categories/paginable
                 mockMvc.perform(get("/categories/paginable")

@@ -20,8 +20,10 @@ import com.github.javafaker.Faker;
 
 import br.com.lufecrx.demo.ecommerce.api.model.Product;
 import br.com.lufecrx.demo.ecommerce.api.repository.ProductRepository;
+import jakarta.transaction.Transactional;
 
 @SpringBootTest
+@Transactional
 public class ProductCachingTest {
 
     @Autowired
@@ -102,5 +104,36 @@ public class ProductCachingTest {
 
         // Verify that the method was called again due to cache eviction
         verify(productRepository, times(2)).findAll(pageRequest);
+    }
+
+    @Test
+    public void testSearchCaching() {
+        // Call the method 100 times
+        for (int i = 0; i < 100; i++) {
+            productServicePaginable.searchProducts("product", null, 100.0, 1000.0, 0, 5,  new String[] { "productName", "asc" });
+        }
+
+        // Verify that the method was called only once due to caching
+        verify(productRepository, times(1)).findByNameAndCategoryAndPriceRange("product", null, 100.0, 1000.0, PageRequest.of(0, 5, Sort.by("productName").ascending()));
+    }
+
+    @Test
+    public void testSearchCacheEvict() {
+        // Call the method 100 times
+        for (int i = 0; i < 100; i++) {
+            productServicePaginable.searchProducts("product", null, 100.0, 1000.0, 0, 5,  new String[] { "productName", "asc" });
+        }
+
+        // Verify that the method was called only once due to caching
+        verify(productRepository, times(1)).findByNameAndCategoryAndPriceRange("product", null, 100.0, 1000.0, PageRequest.of(0, 5, Sort.by("productName").ascending()));
+
+        // Delete a wishlist to evict the cache
+        productService.deleteProduct(products.get(0).getId());
+
+        // Call the method again
+        productServicePaginable.searchProducts("product", null, 100.0, 1000.0, 0, 5,  new String[] { "productName", "asc" });
+
+        // Verify that the method was called again due to cache eviction
+        verify(productRepository, times(2)).findByNameAndCategoryAndPriceRange("product", null, 100.0, 1000.0, PageRequest.of(0, 5, Sort.by("productName").ascending()));
     }
 }
