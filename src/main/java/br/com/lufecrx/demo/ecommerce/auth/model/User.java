@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import br.com.lufecrx.demo.ecommerce.api.model.Wishlist;
 import br.com.lufecrx.demo.ecommerce.auth.util.validator.ValidPassword;
+import br.com.lufecrx.demo.ecommerce.shopping.cart.model.ShoppingCart;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
@@ -19,6 +20,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -35,8 +37,9 @@ import lombok.NoArgsConstructor;
  * The entity has a one-to-many relationship with the Wishlist entity.
  * The entity has a OneTimePassword embedded class to store the OTP and its generation time.
  * 
- * Each user has an id, a login, a password, an email, a birth date, a mobile phone, a role and a set of wishlists,
+ * Each user has an id, a login, a password, an email, a birth date, a mobile phone, a role, a set of wishlists and a shopping cart.
  * 
+ * @see ShoppingCart
  * @see Wishlist 
  * @see OneTimePassword 
  * @see UserRole
@@ -93,6 +96,12 @@ public class User implements UserDetails {
      */
     @Pattern(regexp = "^[0-9]{11}$", message = "User mobile phone must have 11 digits")
     private String mobilePhone;
+
+    /**
+     * The shopping cart of the user. It is a one-to-one relationship.
+     */
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private ShoppingCart shoppingCart;
 
     /**
      * The wishlists of the user. It is a set of wishlists.
