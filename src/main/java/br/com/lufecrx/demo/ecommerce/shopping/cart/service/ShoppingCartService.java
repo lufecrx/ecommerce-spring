@@ -13,6 +13,7 @@ import br.com.lufecrx.demo.ecommerce.auth.model.User;
 import br.com.lufecrx.demo.ecommerce.exception.api.domain.product.ProductNotFoundException;
 import br.com.lufecrx.demo.ecommerce.shopping.cart.model.CartItem;
 import br.com.lufecrx.demo.ecommerce.shopping.cart.model.ShoppingCart;
+import br.com.lufecrx.demo.ecommerce.shopping.cart.model.dto.ShoppingCartDTO;
 import br.com.lufecrx.demo.ecommerce.shopping.cart.repository.CartItemRepository;
 import br.com.lufecrx.demo.ecommerce.shopping.cart.repository.ShoppingCartRepository;
 import jakarta.transaction.Transactional;
@@ -38,7 +39,7 @@ public class ShoppingCartService {
      * 
      * @return The shopping cart of the user.
      */
-    public ShoppingCart getOrCreateShoppingCartForUser() {
+    private ShoppingCart getOrCreateShoppingCartForUser() {
         // Get the user that is adding the product to the cart
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -112,6 +113,9 @@ public class ShoppingCartService {
             cartItemRepository.delete(cartItem);
             shoppingCart.setUpdatedAt(LocalDateTime.now());
             shoppingCartRepository.save(shoppingCart);
+        } else {
+            // If the product is not in the cart, throw an exception
+            throw new ProductNotFoundException(productId);
         }
     }
 
@@ -126,13 +130,13 @@ public class ShoppingCartService {
     }
 
     /**
-     * Get the shopping cart of the user.
+     * Get the shopping cart dto of the user.
      * 
-     * @return The shopping cart of the user.
+     * @return The shopping cart dto of the user.
      */
-    public ShoppingCart getCart() {
+    public ShoppingCartDTO getCart() {
         ShoppingCart shoppingCart = getOrCreateShoppingCartForUser();
-        return shoppingCart;
+        return ShoppingCartDTO.from(shoppingCart);
     }
 
     /**

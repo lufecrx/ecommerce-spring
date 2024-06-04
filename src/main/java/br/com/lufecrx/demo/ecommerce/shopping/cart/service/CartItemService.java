@@ -34,6 +34,7 @@ public class CartItemService {
      * @param cartItemId The identifier of the cart item to update.
      * @param quantity The new quantity of the cart item.
      * @throws CartItemNotFoundException If the cart item is not available.
+     * @throws UnauthorizedCartItemUpdateException If the user is not allowed to update the cart item.
      */
     @Transactional
     public void updateCartItemQuantity(Long cartItemId, Integer quantity) {
@@ -56,6 +57,7 @@ public class CartItemService {
      * 
      * @param cartItemId The identifier of the cart item to remove.
      * @throws CartItemNotFoundException If the cart item is not available.
+     * @throws UnauthorizedCartItemUpdateException If the user is not allowed to delete the cart item.
      */
     @Transactional
     public void deleteCartItem(Long cartItemId) {

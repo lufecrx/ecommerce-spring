@@ -53,19 +53,6 @@ public class ShoppingCartServiceTest {
     }
 
     @Test
-    public void testGetOrCreateShoppingCartForUser() {
-        User user = new User();
-        user.setId(1L);
-
-        when(authentication.getPrincipal()).thenReturn(user);
-        when(shoppingCartRepository.findByUserId(anyLong())).thenReturn(Optional.empty());
-
-        shoppingCartService.getOrCreateShoppingCartForUser();
-
-        verify(shoppingCartRepository, times(1)).save(any(ShoppingCart.class));
-    }
-
-    @Test
     public void testAddProductToCart() {
         User user = new User();
         user.setId(1L);
