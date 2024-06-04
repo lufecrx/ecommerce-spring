@@ -4,13 +4,15 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Embeddable;
 
+/**
+ * Class to represent the one-time password.
+ * @param otp the one-time password.
+ * @param otpGenerationTime the generation time of the one-time password.
+ */
 @Embeddable
-public record OneTimePassword(String otp, LocalDateTime otpGenerationTime) {
+public record OneTimePassword(
+    String otp, 
+    LocalDateTime otpGenerationTime) {
 
-    public OneTimePassword {
-        if (otp == null || otpGenerationTime == null) {
-            throw new IllegalArgumentException("OTP and generation time must not be null");
-        }
-    }
 }
     

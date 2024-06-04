@@ -9,6 +9,9 @@ import br.com.lufecrx.demo.ecommerce.shopping.cart.model.CartItem;
  * CartItemDTO is a data transfer object that represents a cart item.
  * It contains the product id and the quantity of the product.
  * 
+ * @param productId the id of the product
+ * @param quantity the quantity of the product
+ *  
  * @see CartItem
  */
 public record CartItemDTO(

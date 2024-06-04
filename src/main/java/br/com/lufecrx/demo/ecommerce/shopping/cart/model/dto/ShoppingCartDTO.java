@@ -10,6 +10,10 @@ import br.com.lufecrx.demo.ecommerce.shopping.cart.model.ShoppingCart;
  * ShoppingCartDTO is a data transfer object that represents a shopping cart.
  * It contains a list of cart items, the creation date and the last update date.
  * 
+ * @param cartItems the list of cart items
+ * @param createdAt the creation date
+ * @param updatedAt the last update date
+ * 
  * @see ShoppingCart
  */
 public record ShoppingCartDTO(
