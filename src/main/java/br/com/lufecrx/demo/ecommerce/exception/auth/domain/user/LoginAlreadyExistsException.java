@@ -5,11 +5,20 @@ import java.util.ResourceBundle;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * This class represents the exception that is thrown when the login already exists.
+ * Reference for the error message in the messages.properties file: user.login_already_exists
+ * 
+ */
 @Slf4j
 public class LoginAlreadyExistsException extends RuntimeException {
 
     private final static ResourceBundle bundle = ResourceBundle.getBundle("messages", Locale.getDefault());    
 
+    /**
+     * Constructor for the LoginAlreadyExistsException class.
+     * @param login The login that already exists
+     */
     public LoginAlreadyExistsException(String login) {
         super(bundle.getString("user.login_already_exists").replace("{login}", login));
         log.error("User with login {} already exists", login);
