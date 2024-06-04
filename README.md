@@ -83,7 +83,6 @@ Contributions are welcome. Please make sure to update tests as appropriate.
 Next steps for the application include:
 
 - Add functionality to allow users to manager their own orders.
-- Add functionality to allow users to manager their own carts.
 - Payment gateway integration.
 
 ### License
