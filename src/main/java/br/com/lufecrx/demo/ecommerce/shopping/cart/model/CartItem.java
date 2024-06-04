@@ -30,6 +30,16 @@ import lombok.NoArgsConstructor;
 public class CartItem {
 
     /**
+     * Constructor with product and quantity.
+     * @param product The product that the user has added to the cart.
+     * @param quantity The quantity of the product that the user has added to the cart.
+     */
+    public CartItem(Product product, Integer quantity) {
+        this.product = product;
+        this.quantity = quantity;
+    }
+
+    /**
      * The unique identifier of the cart item.
      */
     @Id

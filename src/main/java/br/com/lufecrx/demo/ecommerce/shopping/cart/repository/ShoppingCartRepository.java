@@ -13,7 +13,19 @@ import br.com.lufecrx.demo.ecommerce.shopping.cart.model.ShoppingCart;
 public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Long> {
     
     /**
+     * Finds a shopping cart by id and user.
+     * 
+     * @param id The identifier of the shopping cart.
+     * @param userId The identifier of the user.
+     * @return The shopping cart of the user.
+     */
+    Optional<ShoppingCart> findByIdAndUserId(Long id, Long userId);
+
+    /**
      * Finds a shopping cart by the user id.
+     * 
+     * @param userId The identifier of the user.
+     * @return The shopping cart of the user.
      */
     Optional<ShoppingCart> findByUserId(Long userId);
 }
