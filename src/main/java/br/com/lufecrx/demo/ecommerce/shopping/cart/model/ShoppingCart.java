@@ -36,17 +36,6 @@ import lombok.NoArgsConstructor;
 public class ShoppingCart {
 
     /**
-     * Constructor with the user that owns the shopping cart.
-     * @param user The user that owns the shopping cart.
-     * @see User
-     */
-    public ShoppingCart(User user) {
-        this.user = user;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    /**
      * The unique identifier of the shopping cart.
      */
     @Id
@@ -78,17 +67,31 @@ public class ShoppingCart {
     private List<CartItem> cartItems = new ArrayList<>();
 
     /**
+     * Constructor with the user that owns the shopping cart.
+     * 
+     * @param user The user that owns the shopping cart.
+     * @see User
+     */
+    public ShoppingCart(User user) {
+        this.user = user;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    /**
      * Get the total price of the shopping cart.
+     * 
      * @return The total price of the shopping cart.
      */
     public Double getTotalPrice() {
         return cartItems.stream()
-            .mapToDouble(cartItem -> cartItem.getTotalPrice())
-            .sum();
+                .mapToDouble(cartItem -> cartItem.getTotalPrice())
+                .sum();
     }
 
     /**
      * Add a cart item to the shopping cart.
+     * 
      * @param cartItem The cart item to be added to the shopping cart.
      */
     public void addCartItem(CartItem cartItem) {
@@ -97,6 +100,7 @@ public class ShoppingCart {
 
     /**
      * Remove a cart item from the shopping cart.
+     * 
      * @param cartItem The cart item to be removed from the shopping cart.
      */
     public void removeCartItem(CartItem cartItem) {
@@ -105,6 +109,7 @@ public class ShoppingCart {
 
     /**
      * Add a product to the shopping cart.
+     * 
      * @param product The product to be added to the shopping cart.
      */
     public void addProduct(Product product, Integer quantity) {
