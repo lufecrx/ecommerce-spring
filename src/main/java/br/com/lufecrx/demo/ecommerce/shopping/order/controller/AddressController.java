@@ -1,4 +1,4 @@
-package br.com.lufecrx.demo.ecommerce.shopping.cart.controller;
+package br.com.lufecrx.demo.ecommerce.shopping.order.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
